@@ -1,7 +1,9 @@
+import "./button.css";
+
 const button = ({text, onClick}) => {
     return (
-        <div>
-            <button onClick={onClick}>{text}</button>
+        <div className="content-button">
+            <button className="button" onClick={onClick}>{text}</button>
         </div>
     );
 }

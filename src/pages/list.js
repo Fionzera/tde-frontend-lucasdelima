@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './list.css';
 
 function List() {
   const [digimon, setDigimon] = useState([]);
@@ -14,7 +15,12 @@ function List() {
     try {
       const response = await fetch(`https://digi-api.com/api/v1/digimon?page=${page}`);
       const data = await response.json();
-      setDigimon((prevDigimon) => [...prevDigimon, ...data.content]);
+      setDigimon((prevDigimon) => {
+        const newDigimon = data.content.filter(
+          (digi) => !prevDigimon.some((existingDigi) => existingDigi.id === digi.id)
+        );
+        return [...prevDigimon, ...newDigimon];
+      });
       setCurrentPage(data.pageable.currentPage);
       setTotalPages(data.pageable.totalPages);
     } catch (error) {
@@ -37,23 +43,29 @@ function List() {
   }
 
   return (
-    <div>
-      <h2>Digimons</h2>
-      <ul>
+    <div className='container'>
+      <h1>Digimons</h1>
+      <ul className="card-container">
         {digimon.map((digi) => (
-          <li key={digi.id}>
+          <li key={digi.id} className="card">
             <img src={digi.image} alt={digi.name} />
             <h3>{digi.name}</h3>
             <button onClick={() => navigate(`/list-detail/${digi.id}`)}>
-              Detalhes
+              Ver mais
             </button>
           </li>
         ))}
       </ul>
       {currentPage < totalPages - 1 && (
-        <button onClick={() => fetchDigimon(currentPage + 1)} disabled={loading}>
-          {loading ? 'Carregando...' : 'Carregar Mais'}
-        </button>
+        <div className="load-more-container">
+          <button
+            className='load-more-button'
+            onClick={() => fetchDigimon(currentPage + 1)}
+            disabled={loading}
+          >
+            {loading ? 'Carregando...' : 'Carregar Mais'}
+          </button>
+        </div>
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Button from '../components/button';
+import './listDetail.css';
 
 function ListDetail() {
   const { id } = useParams();
@@ -34,18 +35,30 @@ function ListDetail() {
   }
 
   return (
-    <div>
+    <div className="detail-container">
       {digimon && (
         <>
-          <h2>{digimon.name}</h2>
-          <img src={digimon.images[0].href} alt={digimon.name} />
-          <p><strong>Nível:</strong> {digimon.levels[0].level}</p>
-          <p><strong>Tipo:</strong> {digimon.types[0].type}</p>
-          <p><strong>Atributo:</strong> {digimon.attributes[0].attribute}</p>
-          <p><strong>Tem X-Antibody:</strong> {digimon.xAntibody ? 'Sim' : 'Não'}</p>
+          <div className="detail-image">
+            <img src={digimon.images?.[0]?.href || 'path/to/placeholder-image.png'} alt={digimon.name || 'Desconhecido'} />
+          </div>
+          <div className="detail-info">
+            <h2>{digimon.name || 'Desconhecido'}</h2>
+            <p><strong>Nível:</strong> {digimon.levels?.[0]?.level || 'Desconhecido'}</p>
+            <p><strong>Tipo:</strong> {digimon.types?.[0]?.type || 'Desconhecido'}</p>
+            <p><strong>Atributo:</strong> {digimon.attributes?.[0]?.attribute || 'Desconhecido'}</p>
+            <p><strong>Tem X-Antibody:</strong> {digimon.xAntibody ? 'Sim' : 'Não'}</p>
+            <p><strong>Ano de Lançamento:</strong> {digimon.releaseDate || 'Desconhecido'}</p>
+            {digimon.descriptions && digimon.descriptions.length > 0 ? (
+              digimon.descriptions.map((description, index) => (
+                <p key={index}><strong>Descrição:</strong> {description.description || 'Desconhecido'}</p>
+              ))
+            ) : (
+              <p><strong>Descrição:</strong> Desconhecido</p>
+            )}
+            <Button onClick={() => navigate(`/list`)} text={"Voltar"}/>
+          </div>
         </>
       )}
-        <Button onClick={() => navigate(`/list`)} text={"Votar"}/>
     </div>
   );
 }

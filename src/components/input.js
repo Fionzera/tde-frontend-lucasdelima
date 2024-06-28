@@ -1,11 +1,12 @@
-const input = ({label, placeholder, type, onChange}) => {
-    return (
-        <div>
-             <label>{label}</label>
-             <input type={type} placeholder={placeholder} onChange={onChange}></input>
-        </div>
+import "./input.css";
 
-    );
-}
+const Input = ({ label, placeholder, type, onChange }) => {
+  return (
+    <div className="input-container">
+      <label className="input-label">{label}</label>
+      <input className="input-field" type={type} placeholder={placeholder} onChange={onChange} />
+    </div>
+  );
+};
 
-export default input;
+export default Input;

@@ -1,0 +1,22 @@
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ajusta conforme necessário */
+}
+
+button {
+  background-color: #F31214;
+  color: #ffffff; 
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #ECC73A; 
+}
