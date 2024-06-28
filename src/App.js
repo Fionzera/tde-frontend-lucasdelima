@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css';
 import Login from './pages/login';
 import List from './pages/list';
+import ListDetail from './pages/listDetail';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: '/list',
     element: <List />
+  },
+  {
+    path: "/list-detail/:id",
+    element: <ListDetail />
   }
 ])
 
